@@ -1,0 +1,657 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Final Project - Breweries Opened By Year (UCSD DSE 200x)}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{United States Breweries Opened By
+Year}\label{united-states-breweries-opened-by-year}
+
+ Final Project for UCSD DSE200x Python for Data Science Ryan Shaver
+
+    \subsection{Abstract}\label{abstract}
+
+Dataset: Alcohol and Tobacco, Tax and Trade Bureau from the U.S.
+Department of the Treasury Dataset of Opened Breweries from 1984 -
+December 31, 2018
+
+Question: Has there been a national trend in brewery openings since
+1984? If so, what is it?
+
+Method Used: Line graph, representing breweries opened against years
+using Plot.ly tracers
+
+Findings: There has been a positive trend in brewery opening, with
+notable increases nation wide around 1995 and 2010.
+
+    \subsubsection{The Data Set}\label{the-data-set}
+
+The data set utilized for this project was aquired through
+\href{https://catalog.data.gov/dataset/brewery-count-by-state-1984-march-31-2018}{Data.gov}.
+Clicking through the link, you will see a data set which accounts for
+the breweries opened from 1984 to March 31, 2018. But by doing a bit
+more digging, I was able to locate a more up to date data set from the
+\href{https://www.ttb.gov/foia/frl.shtml}{Alcohol and Tobaco, Tax and
+Trade Bureau from the U.S. Department of the Treasury}
+
+For those interested in exploring the data set themselves, the link is
+supplied on the
+\href{https://www.ttb.gov/foia/count-by-state/q4_brewery_count_by_state_1984_dec2018.xls}{TTB
+website}. They provide an Excel format which was not readily formatted
+for analysis. In the project's
+\href{https://github.com/rshaver/beer_final_ds_ucsd}{Github repository},
+I will provide the file of my cleaned and transposed CSV.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{c+c1}{\PYZsh{} Import}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{plotly}\PY{n+nn}{.}\PY{n+nn}{plotly} \PY{k}{as} \PY{n+nn}{py}
+        \PY{k+kn}{import} \PY{n+nn}{plotly}\PY{n+nn}{.}\PY{n+nn}{graph\PYZus{}objs} \PY{k}{as} \PY{n+nn}{go}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{c+c1}{\PYZsh{} Read in and display the DataFrame}
+        \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{brewery\PYZus{}count\PYZus{}transposed.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{header}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+        \PY{n}{df}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}9}]:}     Year  AK  AL  AR   AZ     CA   CO   CT  DC  DE   FL   GA  HI   IA  ID  \textbackslash{}
+        0   1984   0   0   0    0      9    0    0   0   0    0    0   0    0   0   
+        1   1985   0   0   0    0     12    0    0   0   0    0    0   0    0   0   
+        2   1986   0   0   0    0     15    0    0   0   0    0    0   0    0   0   
+        3   1987   0   0   0    0     23    0    0   0   0    0    0   0    0   3   
+        4   1988   0   0   0    0     39    3    0   0   0    3    0   0    0   3   
+        5   1989   0   0   0    6     50    7    0   0   0    6    0   0    0   3   
+        6   1990   0   0   0    8     67   11    0   0   0    7    0   0    0   3   
+        7   1991   3   0   0    8     76   22    0   0   0   13    0   0    4   5   
+        8   1992   4   0   0    7     93   27    0   0   0   17    0   0    5   8   
+        9   1993   3   0   0    7    115   38    0   0   0   22    0   0    6  10   
+        10  1994   3   0   3   11    127   51    0   0   0   27    3   0    6  11   
+        11  1995   5   5   3   11    167   74    0   0   4   36    6   4    6  15   
+        12  1996  11   8   3   17    218   92   12   3   5   62   18   6    9  24   
+        13  1997  16   8   4   34    259  112   22   5   6   86   24   8   12  28   
+        14  1998  14   9   5   40    273  105   25   5   8   96   26  13   13  29   
+        15  1999  19   9   4   48    289  102   26   4   9   97   30  16   14  25   
+        16  2000  17   7   5   45    281  102   27   4   8   92   29  15   13  24   
+        17  2001  17   4   5   45    266  102   22   5   8   84   30  14   16  20   
+        18  2002  19   3   4   39    270  102   17   5   8   83   25  13   15  19   
+        19  2003  15   3   4   36    278   99   17   4   9   78   29  13   17  20   
+        20  2004  13   5   4   31    282   99   20   5   9   74   29  13   21  19   
+        21  2005  15   5   4   31    278  104   19   4   8   69   25  12   18  20   
+        22  2006  14   4   4   33    293  102   18   4   9   51   22  12   19  20   
+        23  2007  15   5   4   33    310  112   19   3  10   50   23  12   20  20   
+        24  2008  16   5   4   33    333  117   21   3   9   61   20  11   21  24   
+        25  2009  18   5   5   34    340  116   19   3  11   52   22  11   28  25   
+        26  2010  20   7   5   37    358  129   21   4  11   60   26  11   27  25   
+        27  2011  23   9   7   45    401  149   20   6  12   71   25  12   35  33   
+        28  2012  25  15  13   55    472  185   24   5  13   89   31  15   46  39   
+        29  2013  25  23  18   59    528  234   39  11  13  113   37  17   54  42   
+        30  2014  28  25  23   77    654  300   50  12  15  158   48  20   60  51   
+        31  2015  35  30  29   91    788  352   59  13  21  205   54  26   71  57   
+        32  2016  36  37  34  110    927  386   76  13  25  264   69  23   94  67   
+        33  2017  45  52  44  130  1,106  448  103  13  33  338  102  28  115  76   
+        34  2018  51  55  53  146  1,236  500  124  13  38  386  121  38  125  87   
+        
+             IL   IN  KS  KY  LA   MA   MD   ME   MI   MN   MO  MS   MT   NC  ND  NE  \textbackslash{}
+        0     0    0   0   0   0    0    0    0    0    0    0   0    0    0   0   0   
+        1     0    0   0   0   0    0    0    0    0    0    0   0    0    0   0   0   
+        2     0    0   0   0   0    0    0    0    0    3    0   0    0    0   0   0   
+        3     0    0   0   0   0    3    0    0    0    4    0   0    0    0   0   0   
+        4     4    0   0   0   0    3    0    0    3    5    0   0    0    0   0   0   
+        5     5    4   0   0   0    5    3    0    3    7    0   0    0    6   0   0   
+        6     6    4   0   0   0    5    3    0    3    7    0   0    3    8   0   0   
+        7     9    5   0   0   3    6    4    3    3    8    3   0    5   11   0   0   
+        8    12    6   0   0   3    9    5    5    4    8    4   0    7   12   0   5   
+        9    16    7   5   3   4    9    7    8    6    9    5   0   10   14   0   6   
+        10   22    9   7   3   3   17   10   12   12   13   12   0   12   20   0   6   
+        11   26   10  13   7   4   27   12   21   24   18   13   0   13   25   3   8   
+        12   35   21  14  11   8   42   22   27   36   26   14   0   16   36   3   8   
+        13   39   26  17  14  11   44   27   28   60   37   22   0   20   40   4   9   
+        14   44   25  17  15  14   48   27   33   71   35   26   0   24   50   6   8   
+        15   47   24  15  12  11   50   30   37   79   36   30   3   24   52   3   9   
+        16   45   26  10  15  12   45   25   42   77   41   32   4   25   51   3   9   
+        17   41   23   8  10   9   46   26   39   71   37   26   4   26   38   3  11   
+        18   43   23   8  10   7   43   26   38   69   37   28   4   28   38   3  10   
+        19   43   23   7  10   6   44   27   37   76   31   28   3   24   41   3  12   
+        20   45   23  10  10   9   46   29   43   78   30   28   3   22   43   4  12   
+        21   43   27  11  10  10   38   25   43   84   31   33   3   21   45   4  16   
+        22   45   25  17  10  10   40   26   43   91   35   34   0   22   46   3  16   
+        23   52   30  18  12  10   43   24   43   94   34   38   0   26   45   3  17   
+        24   51   30  17  12  10   45   24   43   96   36   38   0   31   50   3  16   
+        25   60   39  17  15  11   44   26   42  104   39   47   0   31   52   3  17   
+        26   62   43  17  14  12   48   24   44  111   42   51   3   31   61   3  16   
+        27   68   59  21  21  12   52   26   49  131   56   55   0   35   71   3  18   
+        28   95   72  21  25  12   65   40   53  160   70   60   4   41   94   7  20   
+        29  123   95  25  25  15   82   43   60  195   75   63   7   49  125   8  25   
+        30  164  116  27  38  17   98   55   71  256  113   77  10   62  155  10  35   
+        31  210  151  37  48  25  124   73   84  316  142   90  14   74  207  11  39   
+        32  244  163  47  60  34  146   88  102  379  165  116  14   79  260  15  47   
+        33  291  213  53  73  43  189  116  131  452  214  145  16   98  330  22  53   
+        34  338  234  64  86  47  230  141  165  510  239  168  19  108  387  26  60   
+        
+             NH   NJ   NM  NV   NY   OH  OK   OR   PA  RI  SC  SD   TN   TX  UT   VA  \textbackslash{}
+        0     0    0    0   0    0    0   0    0    4   0   0   0    0    4   0    0   
+        1     0    0    0   0    0    0   0    3    4   0   0   0    0    4   0    0   
+        2     0    0    0   0    3    0   0    5    5   0   0   0    0    4   0    0   
+        3     0    0    0   0    4    0   0    8    6   0   0   0    0    4   0    0   
+        4     0    0    0   0    5    3   0   13    6   0   0   0    0    5   0    0   
+        5     0    0    0   0    6    5   0   15    8   0   0   0    0    7   0    0   
+        6     0    0    0   0    8    6   0   21   11   0   0   0    0    8   0    4   
+        7     0    0    3   0   13    9   0   26   12   0   0   0    0    7   3    5   
+        8     3    0    5   0   16   12   0   30   12   0   0   0    3    8   4    7   
+        9     4    0    8   3   20   15   4   37   12   0   0   0    5   11   4   12   
+        10    9    5   10   3   27   20   6   48   15   3   0   0    9   27   8    9   
+        11   14    7   12   5   44   28   8   54   27   6  11   0   13   48  13   12   
+        12   18   20   20  10   70   40   9   73   42   5  19   5   15   63  15   17   
+        13   19   23   26  18   84   55   9   86   56   6  21   5   21   71  17   23   
+        14   19   27   27  20   88   68  10   88   63   5  23   5   25   65  17   27   
+        15   19   28   26  24   81   77  10   88   74   6  22   7   23   66  20   29   
+        16   19   24   26  22   78   87   9   82   73   8  19   7   23   59  20   31   
+        17   17   22   23  16   83   74   6   82   81   7  19   6   23   47  16   29   
+        18   17   20   23  17   84   64   6   81   76   7  19   7   22   42  17   30   
+        19   16   22   20  16   86   59   6   87   78   6  21   7   22   41  15   30   
+        20   16   21   22  17   80   55   7   92   86   6  21   6   24   40  16   31   
+        21   14   21   22  16   82   53   8   88   78   5  19   6   19   45  15   34   
+        22   14   21   23  16   82   57   7   95   81   5  16   7   19   47  17   35   
+        23   15   21   21  16   77   58   6   96   94   5  17   8   22   45  15   35   
+        24   16   20   20  17   81   66   9  108   97   5  16   7   23   47  15   43   
+        25   17   22   21  18   84   66  10  108   96   5  15   7   23   47  18   42   
+        26   19   24   26  20  100   75  10  120  118   5  16   8   26   59  18   44   
+        27   21   31   30  20  123   81  10  148  146   6  17   9   31   84  18   54   
+        28   25   29   38  23  150   99  13  180  162   9  23  12   45  107  22   67   
+        29   35   37   48  26  193  114  17  220  183  12  30  12   51  128  24   85   
+        30   46   49   60  34  255  151  18  244  233  14  37  15   69  170  27  117   
+        31   63   71   71  39  329  187  21  281  278  15  51  19   88  220  29  155   
+        32   73   96   86  44  394  236  26  304  333  17  59  21  101  266  34  209   
+        33   88  123  110  46  471  324  43  347  411  27  84  28  120  333  39  287   
+        34  106  146  124  50  532  377  55  386  472  33  94  35  140  387  46  328   
+        
+            VT   WA   WI  WV  WY  
+        0    0    4    5   0   0  
+        1    0    4    6   0   0  
+        2    0    4    7   0   0  
+        3    0    4   10   0   0  
+        4    0    7   12   0   0  
+        5    3    8   14   0   0  
+        6    4   10   17   0   0  
+        7    6   13   18   0   0  
+        8    6   15   19   0   0  
+        9    7   21   23   0   0  
+        10  10   28   29   3   0  
+        11  12   48   35   0   8  
+        12  20   79   50   4  10  
+        13  24  109   57   4  14  
+        14  27  115   65   5  15  
+        15  24  118   77   5  13  
+        16  23  113   91   6  13  
+        17  19   94   82   4  11  
+        18  25   94   90   5  11  
+        19  25   91   90   5  11  
+        20  26   93   97   4  13  
+        21  24  100   98   4  14  
+        22  24  108  103   6  14  
+        23  22  110  105   6  14  
+        24  24  121  110   6  14  
+        25  27  138  108   8  13  
+        26  32  157  119   8  16  
+        27  34  188  126   8  15  
+        28  39  230  146   8  19  
+        29  45  266  146   9  25  
+        30  51  314  168  13  28  
+        31  66  383  189  17  32  
+        32  73  424  217  24  33  
+        33  84  499  261  27  39  
+        34  90  540  303  32  44  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{c+c1}{\PYZsh{} Construct Tracers for Plot.ly to Display}
+         \PY{n}{states} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{AK}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{AL}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{AR}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{AL}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{AZ}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CA}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CO}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{DC}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{DE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FL}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{GA}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{HI}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{IA}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ID}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{IL}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{IN}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{KS}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{KY}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LA}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MA}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MD}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ME}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MI}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MN}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MO}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MS}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NC}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ND}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NH}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NJ}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NM}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NV}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NY}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{OH}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{OK}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{OR}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PA}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{RI}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SC}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SD}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TN}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TX}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{UT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{VA}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{VT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{WA}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{WV}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{WY}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         
+         \PY{k}{def} \PY{n+nf}{createTraces}\PY{p}{(}\PY{n}{states}\PY{p}{)}\PY{p}{:}
+             \PY{n}{traces} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{k}{for} \PY{n}{abbreviation} \PY{o+ow}{in} \PY{n}{states}\PY{p}{:}
+                 \PY{n}{traces}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{go}\PY{o}{.}\PY{n}{Scatter}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{n}{df}\PY{p}{[}\PY{n}{abbreviation}\PY{p}{]}\PY{p}{,} \PY{n}{mode}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lines}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{n}{abbreviation} \PY{p}{)}\PY{p}{)}
+             \PY{k}{return} \PY{n}{traces}
+         
+         
+         \PY{n}{layout} \PY{o}{=} \PY{n}{go}\PY{o}{.}\PY{n}{Layout}\PY{p}{(}\PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Breweries Opened by Year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                            \PY{n}{plot\PYZus{}bgcolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rgb(230, 230,230)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                               \PY{n}{xaxis}\PY{o}{=}\PY{n+nb}{dict}\PY{p}{(}
+                 \PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Years}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                 \PY{n}{titlefont}\PY{o}{=}\PY{n+nb}{dict}\PY{p}{(}
+                     \PY{c+c1}{\PYZsh{}family=\PYZsq{}Courier New, monospace\PYZsq{},}
+                     \PY{n}{size}\PY{o}{=}\PY{l+m+mi}{18}\PY{p}{,}
+                     \PY{c+c1}{\PYZsh{}color=\PYZsq{}\PYZsh{}7f7f7f\PYZsq{}}
+                 \PY{p}{)}
+             \PY{p}{)}\PY{p}{,}
+             \PY{n}{yaxis}\PY{o}{=}\PY{n+nb}{dict}\PY{p}{(}
+                 \PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Breweries Opened}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                 \PY{n}{titlefont}\PY{o}{=}\PY{n+nb}{dict}\PY{p}{(}
+                     \PY{c+c1}{\PYZsh{}family=\PYZsq{}Courier New, monospace\PYZsq{},}
+                     \PY{n}{size}\PY{o}{=}\PY{l+m+mi}{18}\PY{p}{,}
+                     \PY{c+c1}{\PYZsh{}color=\PYZsq{}\PYZsh{}000000\PYZsq{}}
+                 \PY{p}{)}\PY{p}{)}\PY{p}{)}
+         
+         
+         \PY{n}{data} \PY{o}{=} \PY{n}{createTraces}\PY{p}{(}\PY{n}{states}\PY{p}{)}
+         \PY{n}{fig} \PY{o}{=} \PY{n}{go}\PY{o}{.}\PY{n}{Figure}\PY{p}{(}\PY{n}{data}\PY{p}{,} \PY{n}{layout}\PY{o}{=}\PY{n}{layout}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Plot data in the notebook}
+         \PY{n}{py}\PY{o}{.}\PY{n}{iplot}\PY{p}{(}\PY{n}{fig}\PY{p}{,} \PY{n}{filename}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{simple\PYZhy{}plot\PYZhy{}from\PYZhy{}csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}10}]:} <plotly.tools.PlotlyDisplay object>
+\end{Verbatim}
+            
+    \subsection{Conclusion}\label{conclusion}
+
+As can be observed from the above plot, there seemed to be a slight bump
+after 1995 and then a rather dramatic increase starting around 2009 to
+2010. This information in itself is quite useful as it indicates a
+nation wide trend in brewery openings.
+
+This information can lead economists and industry brewers to investigate
+what may have been the proximal causes for these two industry increases.
+
+Further information I found worth noting are the states with the most
+breweries as of 2018. The usual suspects of California, Washington, and
+Colorado were among the top five, but I was surprised to see New York
+and Michigan in the top five as well. These top five were followed by
+Pennsylvania, Texas, North Carolina, Oregon, and Florida. Again where
+California, Colorado, Oregon, and Texas are well known in the beer
+community as having outstanding breweries, it was enlightining to see
+Pennslvania, North Carolina, Florida, and Michigan in the mix.
+
+For those planning brewery excurssions, this plot can certainly steer
+brewery goers in novel and unexcpected directions.
+
+     
+
+    \subsection{References}\label{references}
+
+\subsubsection{Plot.ly}\label{plot.ly}
+
+\begin{itemize}
+\tightlist
+\item
+  https://plot.ly/python/ipython-notebook-tutorial/
+\item
+  https://plot.ly/python/choropleth-maps/
+\item
+  https://www.youtube.com/watch?v=hA39KSTb3dY
+\item
+  https://plot.ly/python/\#animations
+\item
+  https://plot.ly/python/gapminder-example/
+\item
+  https://plot.ly/python/bubble-maps/
+\end{itemize}
+
+\subsubsection{Folium / Leaflet}\label{folium-leaflet}
+
+\begin{itemize}
+\tightlist
+\item
+  https://www.youtube.com/watch?v=4RnU5qKTfYY
+  -https://www.youtube.com/watch?v=xN2N-p33V1k
+\end{itemize}
+
+\subsubsection{Widgets}\label{widgets}
+
+\begin{itemize}
+\tightlist
+\item
+  https://www.youtube.com/watch?v=1ndo6C1KWjI
+\item
+  https://www.youtube.com/watch?v=i40d8-Hu4vM
+\item
+  ipywidegs (core UI controls / sliders)
+\item
+  bqplot (2d plotting)
+\item
+  pythreejs, ipyvolume (3d plotting)
+\item
+  ipyleaflet (maps)
+\end{itemize}
+
+\subsubsection{CSV Analysis / ML}\label{csv-analysis-ml}
+
+\begin{itemize}
+\tightlist
+\item
+  https://www.youtube.com/watch?v=-0NwrcZOKhQ
+\item
+  https://www.youtube.com/watch?v=Q73ADVZCqSU
+\item
+  https://www.youtube.com/watch?v=OBPjFnyxoCc
+\item
+  https://www.youtube.com/watch?v=zJ4RK6jtYCU\&list=PLbD3QT5\_\_Llz88nB-B-Kp5s118DOkAHr1
+\end{itemize}
+
+\subsubsection{Resources}\label{resources}
+
+\begin{itemize}
+\tightlist
+\item
+  https://plot.ly/python/choropleth-maps/
+\item
+  https://www.kaggle.com/rdoume/beerreviews
+\item
+  https://www.kaggle.com/ehallmar/beers-breweries-and-beer-reviews
+\item
+  http://beer.tany.kim/
+\item
+  https://untappd.com/api/docs
+\item
+  https://www.reddit.com/r/Untappd/comments/41i45t/mass\_data\_export/
+\item
+  https://www.kaggle.com/nickhould/craft-cans
+\item
+  https://data.world/datafiniti/breweries-brew-pubs-in-the-usa
+\item
+  https://www.reddit.com/r/datasets/comments/6i0v3g/craft\_beer\_dataset/
+\item
+  https://github.com/nickhould/craft-beers-dataset
+\item
+  https://catalog.data.gov/dataset?tags=beer
+\item
+  https://catalog.data.gov/dataset/yearly-statistical-beer-data-by-state-2007-2016
+\item
+  https://catalog.data.gov/dataset/beer-production-and-operations-reports
+\item
+  https://catalog.data.gov/dataset/brewery-count-by-state-1984-march-31-2017
+\item
+  https://catalog.data.gov/dataset/brewery-count-by-state-1984-march-31-2018
+\item
+  https://www.ttb.gov/foia/frl.shtml
+\end{itemize}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
